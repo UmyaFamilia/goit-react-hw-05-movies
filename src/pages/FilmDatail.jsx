@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { lazy, Suspense } from 'react';
 import { Link, useParams, Route, Routes, useLocation } from 'react-router-dom';
 import { Post } from 'components/components';
@@ -9,6 +9,7 @@ const FilmDatail = () => {
   const location = useLocation();
   let { id } = useParams();
   const [film, setFilm] = useState(null);
+  const backLink = useRef(location.state?.from || '/');
 
   useEffect(() => {
     const request = () => {
@@ -31,7 +32,7 @@ const FilmDatail = () => {
     <div>
       {film ? (
         <>
-          <Link to={location.state?.from || '/Movies'}>
+          <Link to={backLink.current}>
             <button>go to back</button>
           </Link>
           <Post>

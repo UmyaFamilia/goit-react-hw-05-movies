@@ -7,11 +7,12 @@ const Loyout = ({ children }) => {
     <Conteiner>
       <Header>
         <nav>
-          <Link to="/">Home</Link>
+          <Link to="/" end>
+            Home
+          </Link>
           <Link to="/Movies">Movies</Link>
         </nav>
       </Header>
-
       {children}
     </Conteiner>
   );
