@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, Outlet, useLocation } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Link, useParams, Route, Routes, useLocation } from 'react-router-dom';
 import { Post } from 'components/components';
 import { Deteils } from 'components/components';
+const Cast = lazy(() => import('../components/Cast'));
+const Reviews = lazy(() => import('../components/Reviews'));
 const FilmDatail = () => {
   const location = useLocation();
   let { id } = useParams();
@@ -23,8 +26,7 @@ const FilmDatail = () => {
     };
     request();
   }, [id]);
-  const showFilb = () => {};
-  showFilb();
+
   return (
     <div>
       {film ? (
@@ -34,8 +36,15 @@ const FilmDatail = () => {
           </Link>
           <Post>
             <img
-              src={`https://image.tmdb.org/t/p/w400/${film.poster_path}`}
+              src={
+                film.poster_path
+                  ? `https://image.tmdb.org/t/p/w400/${film.poster_path}`
+                  : 'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image'
+              }
               alt={film.title}
+              style={{
+                width: '400px',
+              }}
             />
             <div>
               <h2> {film.original_title}</h2>
@@ -57,7 +66,12 @@ const FilmDatail = () => {
               </li>
             </ul>
           </Deteils>
-          <Outlet />
+          <Suspense>
+            <Routes>
+              <Route path="cast" element={<Cast />} />
+              <Route path="reviews" element={<Reviews />} />
+            </Routes>
+          </Suspense>
         </>
       ) : (
         // eslint-disable-next-line jsx-a11y/img-redundant-alt
@@ -68,4 +82,3 @@ const FilmDatail = () => {
 };
 
 export default FilmDatail;
-//https://api.themoviedb.org /3/movie/ {movie_id} /images

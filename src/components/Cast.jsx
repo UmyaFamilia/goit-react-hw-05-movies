@@ -19,7 +19,6 @@ const Cast = () => {
     };
     request();
   }, [id]);
-
   return (
     <>
       {actors.length ? (
@@ -28,8 +27,13 @@ const Cast = () => {
             return (
               <li key={a.id}>
                 <img
-                  src={`https://image.tmdb.org/t/p/w200/${a.profile_path}`}
-                  alt={actors.character}
+                  src={
+                    a.profile_path
+                      ? `https://image.tmdb.org/t/p/w200/${a.profile_path}`
+                      : 'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image'
+                  }
+                  alt={a.character}
+                  style={{ width: '200px' }}
                 />
                 <p> name:{' ' + a.name}</p>
                 <p>character: {' ' + a.character}</p>
@@ -43,4 +47,5 @@ const Cast = () => {
     </>
   );
 };
+
 export default Cast;

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import Inpute from '../components/Inpute';
 import FilmList from '../components/FilmList';
 const Movies = () => {
-  const inputRef = useRef();
   const [films, setFilms] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
@@ -25,23 +25,18 @@ const Movies = () => {
         .catch(err => console.error(err));
     }
   }, [query]);
+  const search = e => {
+    e.preventDefault();
+    setSearchParams({ query: e.target[0].value });
+  };
 
   return (
     <>
-      <form
-        action=""
-        onSubmit={e => {
-          e.preventDefault();
-          setSearchParams({ query: inputRef.current.value });
-        }}
-      >
-        <input type="text" ref={inputRef} />
-        <button>setch</button>
-      </form>
+      <Inpute search={search} />
+
       {films ? <FilmList list={films} /> : <></>}
     </>
   );
 };
 
 export default Movies;
-// currentTarget
