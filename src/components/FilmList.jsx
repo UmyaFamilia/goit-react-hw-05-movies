@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 const FilmList = ({ list }) => {
   const location = useLocation();
-
   return (
     <ul style={{ listStyleType: 'none' }}>
       {list.map(element => {
